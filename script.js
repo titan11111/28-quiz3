@@ -10,7 +10,8 @@ const gameState = {
     timeLeft: 30,
     timerInterval: null,
     totalAttempts: 0,
-    hasSeenEnding: false
+    hasSeenEnding: false,
+    quickTimeout: null
 };
 
 // 問題データベース
@@ -380,8 +381,48 @@ function stopTimer() {
     document.getElementById('timeLeft').parentElement.classList.remove('warning');
 }
 
+// クイックタイマー
+function startQuickTimer() {
+    clearQuickTimer();
+    gameState.quickTimeout = setTimeout(() => {
+        stopTimer();
+        timeUp();
+    }, 3000);
+}
+
+function clearQuickTimer() {
+    if (gameState.quickTimeout) {
+        clearTimeout(gameState.quickTimeout);
+        gameState.quickTimeout = null;
+    }
+}
+
+// 画面フラッシュ
+function flashScreen(isCorrect) {
+    const originalBg = getComputedStyle(document.body).background;
+    const bossEl = document.getElementById('bossName');
+    const originalText = bossEl.textContent;
+    document.body.style.background = isCorrect ? '#004400' : '#440000';
+    bossEl.textContent = isCorrect ? 'よくやった！' : '愚か者め！';
+    setTimeout(() => {
+        document.body.style.background = '';
+        bossEl.textContent = originalText;
+    }, 1500);
+}
+
+// BOSS KO 表示
+function showBossKO() {
+    const ko = document.getElementById('bossKo');
+    if (!ko) return;
+    ko.classList.add('active');
+    setTimeout(() => {
+        ko.classList.remove('active');
+    }, 1000);
+}
+
 // 時間切れ処理
 function timeUp() {
+    clearQuickTimer();
     const answerButtons = document.querySelectorAll('.answer-btn');
     answerButtons.forEach(btn => btn.classList.add('disabled'));
     
@@ -394,6 +435,8 @@ function timeUp() {
     
     // 間違えた問題を記録
     recordWrongQuestion();
+
+    flashScreen(false);
     
     setTimeout(() => {
         nextQuestion();
@@ -416,11 +459,13 @@ function showQuestion() {
     });
     
     startTimer();
+    startQuickTimer();
 }
 
 // 答え選択
 function selectAnswer(selectedIndex) {
     stopTimer();
+    clearQuickTimer();
     
     const questionData = quizData[gameState.currentZone].questions[gameState.currentQuestionIndex];
     const answerButtons = document.querySelectorAll('.answer-btn');
@@ -432,7 +477,8 @@ function selectAnswer(selectedIndex) {
     });
     
     // 正解かどうかチェック
-    if (selectedIndex === questionData.correct) {
+    const isCorrect = selectedIndex === questionData.correct;
+    if (isCorrect) {
         answerButtons[selectedIndex].classList.add('correct');
         gameState.score++;
         playSound('correct');
@@ -442,6 +488,8 @@ function selectAnswer(selectedIndex) {
         playSound('wrong');
         recordWrongQuestion();
     }
+
+    flashScreen(isCorrect);
     
     // 2秒後に次の問題へ
     setTimeout(() => {
@@ -466,6 +514,7 @@ function recordWrongQuestion() {
 
 // 次の問題
 function nextQuestion() {
+    clearQuickTimer();
     gameState.currentQuestionIndex++;
     
     if (gameState.currentQuestionIndex >= 5) {
@@ -489,6 +538,7 @@ function showResult() {
         resultContent.classList.add('success');
         resultContent.classList.remove('failure');
         resultMessage.textContent = "知識管理官を打倒した！";
+        showBossKO();
         // 数値に変換してから追加
         const zoneId = gameState.currentZone === 'omega' ? 'omega' : parseInt(gameState.currentZone);
         gameState.clearedZones.add(zoneId);
@@ -529,6 +579,8 @@ function startQuiz(zoneId) {
         alert('全てのZoneをクリアしてから挑戦してください！');
         return;
     }
+
+    clearQuickTimer();
     
     gameState.currentZone = zoneId;
     gameState.currentQuestionIndex = 0;
