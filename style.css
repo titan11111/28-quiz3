@@ -361,6 +361,30 @@ button:active {
   cursor: not-allowed;
 }
 
+/* ボス撃破表示 */
+.boss-ko {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 4rem;
+  color: #ff0000;
+  text-shadow: 0 0 20px #ff0000;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+}
+
+.boss-ko.active {
+  display: block;
+  animation: bossKoAnim 1s forwards;
+}
+
+@keyframes bossKoAnim {
+  from { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+  to { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+}
+
 /* 結果画面 */
 #resultScreen {
   display: flex;
