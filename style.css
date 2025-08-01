@@ -141,11 +141,10 @@ button:active {
 
 .zone-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(80px, 1fr));
   gap: 15px;
   max-width: 600px;
   margin: 0 auto 30px;
-  grid-auto-rows: 80px;
 }
 
 .zone-box {
@@ -160,6 +159,8 @@ button:active {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
 
 .zone-box:hover {
@@ -244,13 +245,8 @@ button:active {
   border-color: #00ffff;
   grid-column: 2;
   grid-row: 2;
-  width: 80px;
-  height: 80px;
-  margin: auto;
-  aspect-ratio: 1 / 1;
   border-radius: 0;
   box-shadow: 0 0 20px #00ffff;
-  transform: scale(2);
   z-index: 1;
 }
 
@@ -273,11 +269,19 @@ button:active {
 .zone-name {
   font-size: 0.9rem;
   margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .zone-status {
   font-size: 1.5rem;
   color: #888;
+}
+
+#trainingBtn {
+  display: block;
+  margin: 20px auto 0;
 }
 
 /* クイズ画面 */
