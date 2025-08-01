@@ -352,7 +352,7 @@ button:active {
 
 .answers {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
   margin-bottom: 30px;
 }
@@ -360,11 +360,12 @@ button:active {
 .answer-btn {
   padding: 20px;
   font-size: 1.1rem;
-  text-align: left;
+  text-align: center;
   min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .answer-btn.correct {
@@ -452,6 +453,12 @@ button:active {
   justify-content: center;
   gap: 20px;
   margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.result-actions button {
+  flex: 1 1 200px;
+  max-width: 220px;
 }
 
 /* トレーニング画面 */
@@ -631,7 +638,13 @@ button:active {
   justify-content: center;
   gap: 20px;
   margin-top: 30px;
+  flex-wrap: wrap;
   animation: actionsReveal 1s ease-out 4s both;
+}
+
+.ending-actions button {
+  flex: 1 1 200px;
+  max-width: 220px;
 }
 
 @keyframes actionsReveal {
@@ -717,9 +730,15 @@ button:active {
       grid-template-columns: 1fr;
   }
   
-  .result-actions {
+  .result-actions,
+  .ending-actions {
       flex-direction: column;
       align-items: center;
+  }
+
+  .result-actions button,
+  .ending-actions button {
+      max-width: 100%;
   }
   
   .answer-btn {
