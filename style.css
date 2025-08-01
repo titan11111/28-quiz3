@@ -717,7 +717,7 @@ button:active {
 
   .zone-box.omega {
       grid-column: 1 / -1;
-      grid-row: 2 / span 2;
+      /* autoplace without forcing a specific row to avoid overlap */
   }
   
   .quiz-header {
