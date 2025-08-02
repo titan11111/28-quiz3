@@ -203,11 +203,6 @@ button:active {
   color: #0080ff;
 }
 
-.zone-box.cleared .zone-number {
-  color: #0080ff;
-  text-shadow: 0 0 5px rgba(0, 128, 255, 0.5);
-}
-
 .zone-box.cleared .zone-name {
   color: #0080ff;
 }
@@ -258,20 +253,13 @@ button:active {
   box-shadow: 0 0 25px #00ffff;
 }
 
-.zone-box.omega .zone-number,
 .zone-box.omega .zone-name {
   color: #00ffff;
   text-shadow: 0 0 5px #00ffff;
 }
-
-.zone-number {
+.zone-name {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.zone-name {
-  font-size: 0.9rem;
   margin-bottom: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -772,12 +760,8 @@ button:active {
       padding: 8px;
   }
 
-  .zone-number {
-      font-size: 1.2rem;
-  }
-
   .zone-name {
-      font-size: 0.8rem;
+      font-size: 1rem;
   }
   
   .question-box {
