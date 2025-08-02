@@ -163,7 +163,7 @@ button:active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2 / 1;
   overflow: hidden;
 }
 
@@ -716,7 +716,6 @@ button:active {
   .zone-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      grid-auto-rows: 60px;
   }
 
   .zone-box.omega {
@@ -767,7 +766,6 @@ button:active {
   
   .zone-grid {
       gap: 8px;
-      grid-auto-rows: 60px;
   }
 
   .zone-box {
