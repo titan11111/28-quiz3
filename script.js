@@ -288,6 +288,100 @@ const quizData = {
     }
 };
 
+// 各管理官のコメント設定
+const bossMessages = {
+    1: {
+        correct: [
+            "さすがだ！数字が味方しているぞ！",
+            "計算完璧！熱血教官も満足だ！"
+        ],
+        wrong: [
+            "数字も読めんのか、鍛え直しだ！",
+            "計算力不足だ、油断するな！"
+        ]
+    },
+    2: {
+        correct: [
+            "素敵よ、その表現力。",
+            "言葉を操る才能があるわね。"
+        ],
+        wrong: [
+            "あらあら、言葉が迷子よ。",
+            "もっと語彙を磨きなさい。"
+        ]
+    },
+    3: {
+        correct: [
+            "フハハ！実験は成功だ！",
+            "君の科学センス、悪くない！"
+        ],
+        wrong: [
+            "ふむ、予想外の結果だ…",
+            "試験管が泣いているぞ？"
+        ]
+    },
+    4: {
+        correct: [
+            "うむ、歴史が君を認めた。",
+            "見事だ、昔の知恵を理解しておるな。"
+        ],
+        wrong: [
+            "まだまだ経験が足りんのう。",
+            "これでは年寄りに笑われるぞ。"
+        ]
+    },
+    5: {
+        correct: [
+            "Great! That's correct!",
+            "Nice answer!"
+        ],
+        wrong: [
+            "Oops! Try again, please.",
+            "No no, focus!"
+        ]
+    },
+    6: {
+        correct: [
+            "えらいわね、ちゃんと覚えてたわ。",
+            "その調子、しっかり生活しましょうね。"
+        ],
+        wrong: [
+            "だめよ、それじゃ風邪ひくわ。",
+            "ちゃんとお母さんの言うこと聞いて。"
+        ]
+    },
+    7: {
+        correct: [
+            "ブラボー！リズムに乗れてるね！",
+            "君の音感、心に響くよ！"
+        ],
+        wrong: [
+            "音が外れてるぞ、もう一度だ！",
+            "楽譜が泣いてるよ〜。"
+        ]
+    },
+    8: {
+        correct: [
+            "ナイスファイト！汗が輝いてるぞ！",
+            "その調子で走り続けろ！"
+        ],
+        wrong: [
+            "気合が足りん！腕立て100回だ！",
+            "まだ動けるだろ、甘えるな！"
+        ]
+    },
+    omega: {
+        correct: [
+            "計算結果: 合格。人間、侮れない。",
+            "認識訂正…あなたは優秀だ。"
+        ],
+        wrong: [
+            "エラー: 回答が無効。再試行を要求。",
+            "不適切な解。学習を推奨。"
+        ]
+    }
+};
+
 // 効果音再生
 function playSound(type) {
     const sound = document.getElementById(type + 'Sound');
@@ -403,7 +497,10 @@ function flashScreen(isCorrect) {
     const bossEl = document.getElementById('bossName');
     const originalText = bossEl.textContent;
     document.body.style.background = isCorrect ? '#004400' : '#440000';
-    bossEl.textContent = isCorrect ? 'よくやった！' : '愚か者め！';
+    const zone = gameState.currentZone;
+    const messages = bossMessages[zone] || { correct: ['よくやった！'], wrong: ['愚か者め！'] };
+    const lines = isCorrect ? messages.correct : messages.wrong;
+    bossEl.textContent = lines[Math.floor(Math.random() * lines.length)];
     setTimeout(() => {
         document.body.style.background = '';
         bossEl.textContent = originalText;
