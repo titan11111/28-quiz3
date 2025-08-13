@@ -745,8 +745,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 開始ボタン
     document.getElementById('startBtn').addEventListener('click', function() {
         console.log('Start button clicked');
-        showScreen('zoneScreen');
-        updateZoneStatus();
+        startQuiz(1);
     });
     
     // ゾーン選択

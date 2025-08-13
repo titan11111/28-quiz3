@@ -112,18 +112,12 @@ button:active {
   margin-bottom: 50px;
 }
 
-.warning {
-  background: rgba(255, 0, 0, 0.1);
-  border: 2px solid #ff0000;
-  padding: 20px;
-  margin: 30px 0;
-  border-radius: 8px;
-}
-
-.warning p {
-  color: #ff0000;
-  font-size: 1.1rem;
-  margin: 5px 0;
+.opening-text {
+  max-width: 800px;
+  margin: 20px;
+  color: #fff;
+  line-height: 1.6;
+  text-align: left;
 }
 
 /* ゾーン選択画面 */
